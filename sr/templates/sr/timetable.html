@@ -1,0 +1,51 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'sr/Clock.ico' %}" type="image/x-icon">
+        <link rel='stylesheet' type='text/css' href="{% static 'sr/srstyle.css' %}">
+        <title>Time Table</title>
+        <script src = "{% static 'sr/tt_scripts2v2.js' %}" defer></script>
+    </head>
+
+    <body>
+        {{ lst|json_script:"lst_json" }}
+        {{ names|json_script:"names_json" }}
+
+
+
+        <div id='menu'>
+            <button class='nav_btn' onclick="location.href='{% url 'vlx:index' %}'">Home</button>
+
+            <select id="shiftSelect" style="margin: 0px 5px 0px 0px">
+                <option value="" disabled selected>Choose shift</option>
+                <option value="day">Day shift</option>
+                <option value="morning">Morning shift</option>
+            </select>
+
+            <button class='nav_btn' id = "btn_add_order">Add order</button>
+            <button class='nav_btn' id = "btn_inf">Info</button>
+        </div>
+
+        <div  id="dataInput" class="hide"></div>
+
+        <div  id="orders" class="hide">
+            <table id="ordersTable" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Line</th>
+                        <th>Qty</th>
+                        <th>Staff</th>
+                        <th>Tact</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </body>
+</html>
+

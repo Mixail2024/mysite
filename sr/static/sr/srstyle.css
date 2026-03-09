@@ -1,0 +1,205 @@
+body, html {
+    position: relative;
+    z-index: 0;
+    /*background-image: url('bg1.png');*/
+    background-color: #4a4a4a;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 5px 5px 5px 5px;
+
+
+
+
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    width: auto;
+}
+
+
+
+
+
+/* --------------- B U T T O N S --------------- */
+
+
+.nav_btn {
+    background-color: rgb(247, 220, 111); /*yellow light*/
+
+    min-height: 23px;
+    height: fit-content;
+    font-size: 14px;
+    margin: 0px 5px 0px 0px;
+}
+.nav_btn:hover {
+    background-color: rgb(212, 172, 13); /*yellow dark */
+}
+.btn_blue{
+    background-color: rgb(133, 193, 233); /*blue light*/
+}
+.btn_blue:hover {
+    background-color: rgb(40, 116, 166); /*blue dark*/
+    color: #ffe4e1;
+}
+.btn_red{
+    background-color: #f08080;  /*Light Coral */
+}
+.btn_red:hover {
+    background-color: #a52a2a; /* red*/
+    color: #ffe4e1;
+}
+
+.btn_green{
+    background-color: rgb(98, 171, 143); /*green*/
+}
+.btn_green:hover {
+    background-color: rgb(88, 132, 90); /*green*/
+    color: #ffe4e1;
+}
+
+
+/*------------------------------- C O N T A I N E R S ---------------------*/
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+
+
+
+.container_dark{
+    margin: -10px 5px 5px 2px;
+    padding: 5px 5px 5px 5px;
+    background-color: red;
+    width: auto;
+}
+
+ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding-left: 0; /* Убираем отступ */
+    line-height: 1.6;
+}
+
+
+
+
+.nested {
+    display: none; /* Дочерние элементы скрыты по умолчанию */
+    margin: 5px 0px 5px 50px;
+    font-size: 14px;
+}
+
+.caret {
+    cursor: pointer;
+    margin: 10px 0px 10px 20px;
+}
+
+.caret:hover {
+    background-color: #9e0606;  /* Выберите нужный цвет */
+    /*font-size: 16px;*/
+    color: white;
+
+}
+
+
+
+
+
+
+
+.tab-content {
+    display: none;
+    padding: 5px;
+    /*border: 1px solid #ddd;*/
+    color: #ecf0f1;
+}
+
+.tab-content.active {
+    display: block;
+    background: #898989;
+
+
+}
+
+.tabs {
+    display: flex;
+    /*border-bottom: 2px solid #ddd;*/
+
+}
+
+.tab-button {
+    margin: 5px 0px 0px 0px;
+    padding: 10px 10px;
+    cursor: pointer;
+    background: #b2b2b2;
+    border-right: 1px solid white;
+
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.tab-button.active {
+    margin: 5px 0px 0px 0px;
+    background: #d5d2d2;
+    font-weight: bold;
+
+}
+
+.hour-block {
+    margin: 15px 10px 10px 5px;
+    background-color: red;
+    width:auto;
+
+    border: 1px solid gray;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
+
+.styled-table {
+    margin: 10px 0px 0px 0px;
+    text-align: left;
+    border-collapse: collapse;
+    font-size: 14px;
+    font-family: sans-serif;
+    min-width: 300px;
+    border: 1px solid #ddd;
+
+}
+
+.styled-table thead {
+    background-color: red;
+    color: #ffffff;
+    text-align: left;
+}
+
+ .rail-label {
+    display: block;         /* только на длину текста */
+    width: 120px;
+    margin: 5px 0 0 35px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .rail-label:hover {
+    background-color: red;
+    color: white;
+  }

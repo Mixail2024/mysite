@@ -1,0 +1,270 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'sr/Tree_white.ico' %}" type="image/x-icon">
+        <link rel='stylesheet' type='text/css' href="{% static 'sr/srstyle.css' %}">
+        <script src = "{% static 'sr/script.js' %}" defer></script>
+        <title>SR TreeView</title>
+    </head>
+
+    <body>
+
+        <div class="flex-container">
+            <button class='nav_btn' onclick="location.href='{% url 'vlx:index' %}'">Home</button>
+
+            <button class='nav_btn' onclick="location.href='{% url 'vlx:sr2' %}'">Load</button>
+
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+                {% csrf_token %}
+                <input type="file" name="file" id="fileInput" accept=".xlsx" style="display: none;">
+                <input type="hidden" name="file_name" id="fileNameInput">  <!-- Скрытое поле для имени файла -->
+
+                <button class='nav_btn' id="uploadBtn" type="button">Import file</button>
+                {% if file_name %}
+                    <span style="font-size: 13px;">File "{{ file_name }}" imported</span>
+                {% endif %}
+                <span id="fileInfo" style="font-size: 12px;"></span>
+            </form>
+
+        </div>
+
+        {% if cur_date %}<!---------------------------------------------------- INFO -->
+            <div class='nav container_dark'>
+                {{ cur_date }}<br>
+                {{ open_date }}
+            </div>
+        {% endif %}
+
+
+
+        {% if all_grouped %}
+            <div style="width:auto">
+                <div class="tabs">
+                    <button class="tab-button active" onclick="openTab(event, 'All')">All /{{ qty_all }}</button>
+                    <button class="tab-button" onclick="openTab(event, 'Silver')">Silver /{{ qty_silver }}</button>
+                    <button class="tab-button" onclick="openTab(event, 'WL')">White line /{{ qty_wl }}</button>
+                </div>
+
+                <div id="All" class="tab-content active">
+                        <ul>
+                            {% for parent, children in all_grouped.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                </div>
+
+                <div id="Silver" class="tab-content">
+                    <div class="tabs" style="margin:0px">
+                        <button class="tab-button active" onclick="openTab(event, 'dg')">DG /{{ qty_dg }}</button>
+                        <button class="tab-button" onclick="openTab(event, 'dj')">DJ /{{ qty_dj }}</button>
+                        <button class="tab-button" onclick="openTab(event, 'y')">Y /{{ qty_y }}</button>
+                        <button class="tab-button" onclick="openTab(event, 'k_s')">K /{{ qty_k_s }}</button>
+                        <button class="tab-button" onclick="openTab(event, 'a_s')">A /{{ qty_a_s }}</button>
+                        <button class="tab-button" onclick="openTab(event, 'bbox_main')">Black Box</button>
+                    </div>
+
+                    <div id="dg" class="tab-content active">
+                         <ul>
+                            {% for parent, children in lst_dg.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        {% if lst_dg_rails %}
+                            <p style="margin: 5px 0px 0px 35px; color: black">Rails:<br>
+                            <script>
+                                  const lst_dg_rails = {{ lst_dg_rails|safe }};
+                                  const container = document.getElementById('dg');
+                                  for (const [key, value] of Object.entries(lst_dg_rails)) {
+                                        const rail_qty = document.createElement('label');
+                                        rail_qty.classList.add('rail-label');
+
+                                        rail_qty.innerHTML = `${key} - ${value} <br>`;
+                                        container.appendChild(rail_qty);
+                                  }
+                            </script>
+                        {% endif %}
+                    </div>
+
+                    <div id="dj" class="tab-content">
+                        <ul>
+                            {% for parent, children in lst_dj.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        {% if lst_dj_rails %}
+                            <p style="margin: 5px 0px 0px 35px; color: black">Rails:<br>
+                            <script>
+                                  const lst_dj_rails = {{ lst_dj_rails|safe }};
+                                  const container_dj = document.getElementById('dj');
+                                  for (const [key, value] of Object.entries(lst_dj_rails)) {
+                                        const rail_qty = document.createElement('label');
+                                        rail_qty.classList.add('rail-label');
+
+                                        rail_qty.innerHTML = `${key} - ${value} <br>`;
+                                        container_dj.appendChild(rail_qty);
+                                  }
+                            </script>
+                        {% endif %}
+                    </div>
+
+                    <div id="y" class="tab-content">
+                        <ul>
+                            {% for parent, children in lst_y.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div id="k_s" class="tab-content">
+                        <ul>
+                            {% for parent, children in lst_k_s.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div id="a_s" class="tab-content">
+                        <ul>
+                            {% for parent, children in lst_a_s.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+
+                    <div id="bbox_main" class="tab-content">
+                        <div class="tabs">
+                            <button class="tab-button active" onclick="openTab(event, 'bbox')">Bbox </button>
+                            <button class="tab-button" onclick="openTab(event, 'A_without_bbox')">A,Y without Bbox </button>
+                        </div>
+
+                        <div id="bbox" class="tab-content active">
+                             <ul>
+                                {% for parent, children in lst_bb.items %}
+                                    <li>
+                                        <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                        <ul class="nested">
+                                            {% for child in children %}
+                                                <li>{{ child }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div id="A_without_bbox" class="tab-content">
+                            <ul>
+                                {% for parent, children in lst_out_bb.items %}
+                                    <li>
+                                        <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                        <ul class="nested">
+                                            {% for child in children %}
+                                                <li>{{ child }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+                <div id="WL" class="tab-content">
+                    <div class="tabs">
+                        <button class="tab-button active" onclick="openTab(event, 'k_wl')">K /{{ qty_k_wl}}</button>
+                        <button class="tab-button" onclick="openTab(event, 'a_wl')">A /{{ qty_a_wl}}</button>
+
+                    </div>
+
+                    <div id="k_wl" class="tab-content active">
+                        <ul>
+                            {% for parent, children in lst_k_wl.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div id="a_wl" class="tab-content">
+                        <ul>
+                            {% for parent, children in lst_a_wl.items %}
+                                <li>
+                                    <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
+                                    <ul class="nested">
+                                        {% for child in children %}
+                                            <li>{{ child }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        {% endif %}
+
+    </body>
+</html>

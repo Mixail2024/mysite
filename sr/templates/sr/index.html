@@ -1,0 +1,21 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'sr/Tree_white.ico' %}" type="image/x-icon">
+        <link rel='stylesheet' type='text/css' href="{% static 'sr/srstyle.css' %}">
+
+        <title>SR TreeView</title>
+    </head>
+
+    <body>
+
+
+        <button class='nav_btn' onclick="location.href='{% url 'vlx:sr' %}'">SR Tree</button>
+        <button class='nav_btn' onclick="location.href='{% url 'vlx:tt' %}'">Time table</button>
+
+
+    </body>
+</html>
