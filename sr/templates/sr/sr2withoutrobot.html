@@ -64,11 +64,8 @@
                         <button class="tab-button" onclick="openTab(event, 'bbox_main')">Black Box</button>
                     </div>
 
-
-
-
                     <div id="dg" class="tab-content active">
-                        <ul>
+                         <ul>
                             {% for parent, children in lst_dg.items %}
                                 <li>
                                     <span class="caret" onclick="toggleChildren(this)">&#9656; {{ parent }}</span>
@@ -82,38 +79,20 @@
                         </ul>
 
                         {% if lst_dg_rails %}
-                            <p style="margin: 5px 0px 0px 35px; color: black">Rails:<br></p>
-                            <div id="dg-rails"></div>
-                                <script>
-                                    const lst_dg_rails = {{ lst_dg_rails|safe }};
-                                    const container = document.getElementById('dg-rails');
-                                    for (const [key, value] of Object.entries(lst_dg_rails)) {
+                            <p style="margin: 5px 0px 0px 35px; color: black">Rails:<br>
+                            <script>
+                                  const lst_dg_rails = {{ lst_dg_rails|safe }};
+                                  const container = document.getElementById('dg');
+                                  for (const [key, value] of Object.entries(lst_dg_rails)) {
                                         const rail_qty = document.createElement('label');
                                         rail_qty.classList.add('rail-label');
+
                                         rail_qty.innerHTML = `${key} - ${value} <br>`;
                                         container.appendChild(rail_qty);
-                                    }
-                                </script>
-                        {% endif %}
-
-                        {% if robot_dg %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="dg-robot"></div>
-                                <script>
-                                    const robot_dg = {{ robot_dg|safe }};
-                                    const container_dg_robot = document.getElementById('dg-robot');
-                                    for (const i of robot_dg) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_dg_robot.appendChild(m);
-                                    }
-                                </script>
+                                  }
+                            </script>
                         {% endif %}
                     </div>
-
-
-
 
                     <div id="dj" class="tab-content">
                         <ul>
@@ -143,25 +122,7 @@
                                   }
                             </script>
                         {% endif %}
-
-                        {% if robot_dj %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="dj-robot"></div>
-                                <script>
-                                    const robot_dj = {{ robot_dj|safe }};
-                                    const container_dj_robot = document.getElementById('dj-robot');
-                                    for (const i of robot_dj) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_dj_robot.appendChild(m);
-                                    }
-                                </script>
-                        {% endif %}
                     </div>
-
-
-
 
                     <div id="y" class="tab-content">
                         <ul>
@@ -176,25 +137,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
-
-                        {% if robot_y %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="y-robot"></div>
-                                <script>
-                                    const robot_y = {{ robot_y|safe }};
-                                    const container_y_robot = document.getElementById('y-robot');
-                                    for (const i of robot_y) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_y_robot.appendChild(m);
-                                    }
-                                </script>
-                        {% endif %}
                     </div>
-
-
-
 
                     <div id="k_s" class="tab-content">
                         <ul>
@@ -209,27 +152,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
-
-                        {% if robot_k_s %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="k_s-robot"></div>
-                                <script>
-                                    const robot_k_s = {{ robot_k_s|safe }};
-                                    const container_k_s_robot = document.getElementById('k_s-robot');
-                                    for (const i of robot_k_s) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_k_s_robot.appendChild(m);
-                                    }
-                                </script>
-                        {% endif %}
                     </div>
-
-
-
-
-
 
                     <div id="a_s" class="tab-content">
                         <ul>
@@ -244,25 +167,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
-
-                        {% if robot_a_s %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="a_s-robot"></div>
-                                <script>
-                                    const robot_a_s = {{ robot_a_s|safe }};
-                                    const container_a_s_robot = document.getElementById('a_s-robot');
-                                    for (const i of robot_a_s) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_a_s_robot.appendChild(m);
-                                    }
-                                </script>
-                        {% endif %}
                     </div>
-
-
-
 
 
                     <div id="bbox_main" class="tab-content">
@@ -284,30 +189,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-
-                            {% if robot_bb %}
-                                <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                                <div id="bb-robot"></div>
-                                    <script>
-                                        const robot_bb = {{ robot_bb|safe }};
-                                        const container_bb_robot = document.getElementById('bb-robot');
-                                        for (const i of robot_bb) {
-                                            const m = document.createElement('label');
-                                            m.classList.add('rail-label');
-                                            m.innerHTML = `${i} <br>`;
-                                            container_bb_robot.appendChild(m);
-                                        }
-                                    </script>
-                            {% endif %}
-
                         </div>
-
-
-
-
-
-
-
 
                         <div id="A_without_bbox" class="tab-content">
                             <ul>
@@ -322,25 +204,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-
-                            {% if robot_out_bb %}
-                                <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                                <div id="out_bb_robot"></div>
-                                    <script>
-                                        const robot_out_bb = {{ robot_out_bb|safe }};
-                                        const container_out_bb_robot = document.getElementById('out_bb_robot');
-                                        for (const i of robot_out_bb) {
-                                            const m = document.createElement('label');
-                                            m.classList.add('rail-label');
-                                            m.innerHTML = `${i} <br>`;
-                                            container_out_bb_robot.appendChild(m);
-                                        }
-                                    </script>
-                            {% endif %}
                         </div>
-
-
-
 
                     </div>
                 </div>
@@ -368,28 +232,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
-
-                        {% if robot_k_wl %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="k_wl-robot"></div>
-                                <script>
-                                    const robot_k_wl = {{ robot_k_wl|safe }};
-                                    const container_k_wl_robot = document.getElementById('k_wl-robot');
-                                    for (const i of robot_k_wl) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_k_wl_robot.appendChild(m);
-                                    }
-                                </script>
-                        {% endif %}
                     </div>
-
-
-
-
-
-
 
                     <div id="a_wl" class="tab-content">
                         <ul>
@@ -404,21 +247,6 @@
                                 </li>
                             {% endfor %}
                         </ul>
-
-                        {% if robot_a_wl %}
-                            <p style="margin: 15px 0px 0px 35px; color: black">Robot:<br></p>
-                            <div id="a_wl-robot"></div>
-                                <script>
-                                    const robot_a_wl = {{ robot_a_wl|safe }};
-                                    const container_a_wl_robot = document.getElementById('a_wl-robot');
-                                    for (const i of robot_a_wl) {
-                                        const m = document.createElement('label');
-                                        m.classList.add('rail-label');
-                                        m.innerHTML = `${i} <br>`;
-                                        container_a_wl_robot.appendChild(m);
-                                    }
-                                </script>
-                        {% endif %}
                     </div>
 
                 </div>

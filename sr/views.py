@@ -233,14 +233,15 @@ def sr2(request):#=========================================================== IN
 
 
     lsts = stat_lsts(original_all_objs)
+
+    # robot_dj = robot(lsts['bb'])
+    # print(robot_dj)
+
     lst_dg_grouped = get_grouped(lsts['dg'])
     lst_dg_rails = rails_qtys(lst_dg_grouped)
 
-
-
     lst_dj_grouped = get_grouped(lsts['dj'])
     lst_dj_rails = rails_qtys(lst_dj_grouped)
-
 
     lst_y_grouped = get_grouped(lsts['y'])
     lst_k_s_grouped = get_grouped(lsts['k_s'])
@@ -249,6 +250,17 @@ def sr2(request):#=========================================================== IN
     lst_out_bb_grouped = get_grouped(lsts['out_bb'])
     lst_k_wl_grouped = get_grouped(lsts['k_wl'])
     lst_a_wl_grouped = get_grouped(lsts['a_wl'])
+
+    context['robot_dj'] = robot(lsts['dj'])
+    context['robot_dg'] = robot(lsts['dg'])
+    context['robot_y'] = robot(lsts['y'])
+    context['robot_k_s'] = robot(lsts['k_s'])
+    context['robot_a_s'] = robot(lsts['a_s'])
+    context['robot_bb'] = robot(lsts['bb'])
+    context['robot_out_bb'] = robot(lsts['out_bb'])
+    context['robot_k_wl'] = robot(lsts['k_wl'])
+    context['robot_a_wl'] = robot(lsts['a_wl'])
+
 
     context['lst_dg'] = lst_dg_grouped
     context['lst_dj'] = lst_dj_grouped
@@ -277,6 +289,45 @@ def sr2(request):#=========================================================== IN
 
     return render(request, 'sr/sr2.html', context)
 
+def robot(lst_in):
+    lst_inter = []
+    for i in lst_in:
+        mod = []
+        if i.model_type == 'Y':
+            mod.append(i.model_short[4:6])
+            mod.append(i.model_quantity)
+
+        elif i.model_type in ('DG', 'DJ'):
+            mod.append(i.model_short[:5])
+            mod.append(i.model_quantity)
+        else:
+            if i.model_short[4:5].startswith('1') or i.model_short[4:5].startswith('2'):
+                mod.append(str(i.model_short[4:5])+'xx')
+                mod.append(i.model_quantity)
+
+            elif i.model_short[5:6].startswith('K'):
+                mod.append(i.model_short[4:6])
+                mod.append(i.model_quantity)
+
+            else:
+                mod.append(i.model_short[4:5])
+                mod.append(i.model_quantity)
+        lst_inter.append(mod)
+
+    lst_out = []
+    name = lst_inter[0][0]
+    qty = 0
+
+    for j in lst_inter:
+        if j[0] == name:
+            qty += j[1]
+        else:
+            lst_out.append(str(name)+' - '+str(qty))
+            name = j[0]
+            qty = j[1]
+
+    lst_out.append(str(name)+' - '+str(qty))
+    return lst_out
 
 
 
